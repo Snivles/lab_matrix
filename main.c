@@ -52,7 +52,15 @@ void generateRandomMas(int **Mx, size_t row , size_t column, int start , int end
   }
 }
 
+void FreeMx(int ***Mx, size_t rows) {
+    if (Mx == NULL || *Mx == NULL) return;
 
+    for (size_t i = 0; i < rows; i++) {
+        free((*Mx)[i]);
+    }
+    free(*Mx);
+    *Mx = NULL;
+}
 
 int main()
 {
