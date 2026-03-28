@@ -62,6 +62,36 @@ void FreeMx(int ***Mx, size_t rows) {
     *Mx = NULL;
 }
 
+
+
+int **Sum_Mx(int **Mx_A, size_t row_A, size_t column_A,int **Mx_B, size_t row_B, size_t column_B)
+{
+  if(row_A != row_B || column_A != column_B || Mx_A == NULL || Mx_B == NULL){return NULL;}
+  int **Result = CreateMatrix(row_A, column_A);
+  if (Result == NULL) {return NULL;}
+  for (size_t i=0; i < row_A;i++){
+      if (Mx_A[i] != NULL && Mx_B[i] != NULL){
+        for (size_t j = 0; j < column_A; j++){
+                int sum = Mx_A[i][j] + Mx_B[i][j];
+                int a_mx = Mx_A[i][j],b_mx = Mx_B[i][j];
+                if ((b_mx > 0 && a_mx > INT_MAX - b_mx) || (b_mx < 0 && a_mx < INT_MIN - b_mx)){
+                  FreeMx(&Result, row_A);
+                  return NULL;}
+                sum = Mx_A[i][j] + Mx_B[i][j];
+                Result[i][j] = sum;}}
+      else if (Mx_A[i] == NULL && Mx_B[i] != NULL) {
+            for (size_t j = 0; j < column_A; j++){
+                Result[i][j] = Mx_B[i][j];
+            }
+        }
+      else if (Mx_A[i] != NULL && Mx_B[i] == NULL) {
+            for (size_t j = 0; j < column_A; j++){
+                Result[i][j] = Mx_A[i][j];
+            }
+        }
+}
+  return Result;}
+
 int main()
 {
     printf("Hello World!\n");
