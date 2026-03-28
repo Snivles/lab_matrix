@@ -37,7 +37,20 @@ void PrintMx(int **Mx, size_t row, size_t column)
     }
 }
 
-
+void generateRandomMas(int **Mx, size_t row , size_t column, int start , int end){
+  if (Mx == NULL) return;
+  if( start > end){
+    int flag = end;
+    end = start;
+    start = flag;
+}
+  if(start <= end && (start >=0 && end>=0)){
+  for (size_t i = 0; i < row; i++)
+    for (size_t j = 0; j < column; j++)
+        if(Mx[i] != NULL){
+        Mx[i][j] = rand() % (end-start+1)+start;}
+  }
+}
 
 
 
