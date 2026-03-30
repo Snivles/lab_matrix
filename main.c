@@ -67,62 +67,50 @@ int **Transposition(int **Mx, size_t row, size_t column){
     if(Mx == NULL){return NULL;}
     int **Result = CreateMatrix(column,row);
     if(Result == NULL){return NULL;}
-    for (size_t i=0; i < row; i++){
+    int d = 1;
+    for (size_t i = 0; i < row; i++){
+        d++;
         if (Mx[i] != NULL){
-            for (size_t j = 0; j < column; j++){Result[j][i] = Mx[i][j];}
-}
-}
+            for (size_t j = 0; j < column; j++){
+                Result[j][i] = Mx[i][j];
+            }
+        }}
     return Result;
 }
-
 int main()
 {
-  //int row1 = 2, column1 = 4;
-  //int row2 = 2, column2 = 4; - работает штатно все функции выполнены
+  //int row1 = 2, column1 = 4; - работает штатно все функции выполнены
 
 
-  //int row1 = 2, column1 = 4;
-  //int row2 = 0, column2 = 4; - работатет штатно сообщаем пользователю что ошибка с размерами
+  //int row1 = 0, column1 = 4; - работатет штатно сообщаем пользователю что ошибка с размерами
 
 
-  //int row1 = 5, column1 = 4;
-  //int row2 = 2, column2 = 4; - работает штатно тк размеры матрицы различны(не кв матрица) => транспозиция выполнена
+  //int row1 = 5, column1 = 4;- работает штатно => транспозиция выполнена
 
-  //int row1 = 10, column1 = 22;
-  //int row2 = 10, column2 = 22; // - проверка работы матрицы с большими размерами
+  //int row1 = 10, column1 = 22; // - проверка работы матрицы с большими размерами
 
-  //int row1 = 1, column1 = 5;
-  //int row2 = 5, column2 = 1; // - даны 2 матриц вектора работает штатно: транспозиция превращает вектор-столбец
+  //int row1 = 1, column1 = 5; // - даны 2 матриц вектора работает штатно: транспозиция превращает вектор-столбец
 // в вектор-строку и наоборот
 
-  int row1 = 3, column1 = 3;
-  int row2 = 3, column2 = 3; //- работает штатно все функции выполнены для заданных вектор-строк,транспозиция дает вектор-столбец
+  int row1 = 4, column1 = 4;//- работает штатно все функции выполнены для заданных вектор-строк,транспозиция дает вектор-столбец
 
-  if (row1<=0 || row2 <= 0 || column1 <= 0 || column2 <= 0){printf("Error with size"); return 0;}
+  if (row1<=0 || column1 <= 0 ){printf("Error with size"); return 0;}
   int start = 5;
   int end = 100;
   int **A = CreateMatrix(row1, column1);
-  int **B = CreateMatrix(row2, column2);
-  if (!A || !B){printf("Error with mx");FreeMx(&A,row1);FreeMx(&B,row2); return 0;}
+  if (!A){printf("Error with mx");FreeMx(&A,row1); return 0;}
 
   srand(time(0));
   generateRandomMas(A,row1,column1,start,end);
   //generateRandomMas(NULL,row1,column1,start,end);
 
-  generateRandomMas(B,row2,column2,start,end);
-  //generateRandomMas(NULL,row2,column2,start,end);
 
+  free(A[0]);
+  A[0] = NULL;// - функция транспозиции отрабатывает штатно
 
-  //free(A[1]);
-  //A[1] = NULL;// - функция транспозиции отрабатывает штатно
-
-  //free(B[2]);
-  //B[2] = NULL;//- функция транспозиции отрабатывает штатно
 
 
   PrintMx(A,row1,column1);
-  printf("------------------------\n");
-  PrintMx(B,row2,column2);
   int **C = Transposition(A,row1,column1);
   if (C){
       printf("------------------------\n");
@@ -132,16 +120,6 @@ int main()
   else{
       printf("------------------------\n");
       printf("Error with Transposition\n");}
-    C = Transposition(B,row2,column2);
-  if (C){
-      printf("------------------------\n");
-      printf("Transposition\n");
-      PrintMx(C,column2,row2);
-      FreeMx(&C,column2);}
-  else{
-      printf("------------------------\n");
-      printf("Error with Transposition\n");}
   FreeMx(&A,row1);
-  FreeMx(&B,row2);
   return 0;
 }
