@@ -67,9 +67,7 @@ int **Transposition(int **Mx, size_t row, size_t column){
     if(Mx == NULL){return NULL;}
     int **Result = CreateMatrix(column,row);
     if(Result == NULL){return NULL;}
-    int d = 1;
     for (size_t i = 0; i < row; i++){
-        d++;
         if (Mx[i] != NULL){
             for (size_t j = 0; j < column; j++){
                 Result[j][i] = Mx[i][j];
